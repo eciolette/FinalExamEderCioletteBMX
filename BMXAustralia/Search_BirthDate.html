@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>BMX AUSTRALIA</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous">
+    </script>
+    <style>
+        h1 {
+            color: forestgreen;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        h2 {
+            color: black;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: lightgray;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        function find() {
+            $.getJSON('/API/VALUES/SearchBirthDate?date=' + $('#txtBirthDate').val())
+                .success(
+                    function (data) {
+                        $('#results').empty();
+                        $.each(data, function (key, val) {
+                            var displayValue = "ID: " + val.ParticipantId + " - FIRST NAME: " + val.FirstName + " - LAST NAME: " + val.LastName + " - GENDER: " + val.Gender + " - BIRTH DATE: " + val.BirthDate + " - EMAIL ADDRESS: " + val.EmailAddress;
+                            $('<li/>', { text: displayValue }).appendTo($('#results'));
+                        });
+                    });
+        }
+    </script>
+    <h1>BMX AUSTRALIA</h1>
+    <br />
+    <h2>SEARCH BIRTH DATE</h2>
+    <br />
+    <p>
+        Birth Date Participant: <input type="text" id="txtBirthDate" />
+        <br />
+        <br />
+        <input type="button" value="Search" onclick="find();" />
+    </p>
+    <ul id="results">
+    </ul>
+</body>
+</html>
